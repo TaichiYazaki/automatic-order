@@ -1,0 +1,16 @@
+version: "3"
+services:
+  selenium:
+    container_name: automatic-order-selenium
+    image: selenium/standalone-chrome:latest
+    ports:
+      - 4444:4444         # selenium sever port
+      - 7900:7900         # 実行中のChromeを確認するVNC用port
+  python:
+    volumes:
+      - ../:/usr/src/automatic-order:cached
+    container_name: automatic-order-python
+    build: .
+    tty: true             # ターミナル入力を受け付ける
+    depends_on:           # seleniumコンテナの後で起動させるように指定
+      - selenium
