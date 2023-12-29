@@ -3,14 +3,15 @@ services:
   selenium:
     container_name: automatic-order-selenium
     image: selenium/standalone-chrome:latest
+    shm_size: 2gb         # ホストとメモリを共有するために設定
     ports:
       - 4444:4444         # selenium sever port
       - 7900:7900         # 実行中のChromeを確認するVNC用port
   python:
-    volumes:
-      - ../:/usr/src/automatic-order:cached
     container_name: automatic-order-python
     build: .
+    volumes:
+      - ../:/usr/src/automatic-order:cached
     tty: true             # ターミナル入力を受け付ける
     depends_on:           # seleniumコンテナの後で起動させるように指定
       - selenium
