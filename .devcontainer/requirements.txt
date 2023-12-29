@@ -3,4 +3,3 @@ selenium
 BeautifulSoup4
 pandas
 flake8
-python-dotenv
